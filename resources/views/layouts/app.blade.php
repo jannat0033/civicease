@@ -8,7 +8,7 @@
     <meta name="description" content="CivicEase helps residents report local issues and track progress.">
     <link rel="preconnect" href="https://unpkg.com">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 <body class="min-h-screen">
     <div class="flex min-h-screen flex-col">
