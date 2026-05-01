@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-slate-50 text-slate-800 antialiased;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer components {
+    .btn {
+        @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-civic-500 focus:ring-offset-2;
+    }
+
+    .btn-primary {
+        @apply btn bg-civic-600 text-white hover:bg-civic-700;
+    }
+
+    .btn-secondary {
+        @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-100;
+    }
+
+    .card {
+        @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-soft;
+    }
+
+    .input-label {
+        @apply mb-2 block text-sm font-medium text-slate-700;
+    }
+
+    .text-input {
+        @apply block w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-civic-500 focus:ring-civic-500;
+    }
+
+    .status-badge {
+        @apply inline-flex rounded-full px-3 py-1 text-xs font-semibold;
+    }
+
+    .status-submitted {
+        @apply bg-slate-100 text-slate-700;
+    }
+
+    .status-in_review {
+        @apply bg-amber-100 text-amber-800;
+    }
+
+    .status-resolved {
+        @apply bg-green-100 text-green-800;
+    }
+
+    .status-rejected {
+        @apply bg-red-100 text-red-800;
+    }
+
+    .alert-success {
+        @apply rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-800;
+    }
+
+    .alert-info {
+        @apply rounded-xl border border-civic-200 bg-civic-50 p-4 text-sm text-civic-900;
+    }
+
+    .alert-danger {
+        @apply rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700;
+    }
+}
