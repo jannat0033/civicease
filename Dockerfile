@@ -12,6 +12,9 @@ COPY . .
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Clear Laravel cache (important)
+RUN php artisan config:clear && php artisan cache:clear
+
 EXPOSE 8080
 
-CMD php -S 0.0.0.0:${PORT} -t public
+CMD ["sh", "-c", "PORT_CLEAN=$(echo $PORT | grep -o '[0-9]*$'); php -S 0.0.0.0:${PORT_CLEAN:-8080} -t public"]
