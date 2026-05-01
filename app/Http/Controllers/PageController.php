@@ -5,16 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use Throwable;
 
 class PageController extends Controller
 {
     public function home(): View
     {
         $stats = [
-            'reports' => Report::count(),
-            'resolved' => Report::where('status', Report::STATUS_RESOLVED)->count(),
-            'inReview' => Report::where('status', Report::STATUS_IN_REVIEW)->count(),
+            'reports' => 0,
+            'resolved' => 0,
+            'inReview' => 0,
         ];
+
+        try {
+            if (Schema::hasTable('reports')) {
+                $stats = [
+                    'reports' => Report::count(),
+                    'resolved' => Report::where('status', Report::STATUS_RESOLVED)->count(),
+                    'inReview' => Report::where('status', Report::STATUS_IN_REVIEW)->count(),
+                ];
+            }
+        } catch (Throwable) {
+            // Keep safe default values when the database or reports table is unavailable.
+        }
 
         return view('pages.home', compact('stats'));
     }
