@@ -14,4 +14,4 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 EXPOSE 8080
 
-CMD php -S 0.0.0.0:8080 -t public
+CMD php -S 0.0.0.0:${PORT} -t public
