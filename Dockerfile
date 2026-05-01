@@ -12,6 +12,10 @@ COPY . .
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Fix Laravel permissions (prevents runtime crashes)
+RUN chmod -R 775 storage bootstrap/cache
+
 EXPOSE 8080
 
-CMD ["sh", "-c", "PORT_CLEAN=$(echo $PORT | grep -o '[0-9]*$'); php -S 0.0.0.0:${PORT_CLEAN:-8080} -t public"]
+# IMPORTANT: bind directly to Railway PORT
+CMD ["sh", "-c", "php -S 0.0.0.0:${PORT} -t public"]
