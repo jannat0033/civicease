@@ -18,4 +18,4 @@ RUN chmod -R 775 storage bootstrap/cache
 EXPOSE 8080
 
 # IMPORTANT: bind directly to Railway PORT
-CMD ["sh", "-c", "php -S 0.0.0.0:${PORT} -t public"]
+CMD ["sh", "-c", "php -S 0.0.0.0:10000 -t public"]
