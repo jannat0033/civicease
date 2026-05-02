@@ -2,23 +2,34 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use RuntimeException;
 
 class BrevoTransactionalMailer
 {
-    public function sendEmailVerification(string $email, string $name, string $verificationUrl): void
+    public function sendEmailVerification(User $user): void
     {
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(60),
+            [
+                'id' => $user->getKey(),
+                'hash' => sha1($user->getEmailForVerification()),
+            ]
+        );
+
         $htmlContent = View::make('emails.verify-email', [
-            'name' => $name,
+            'name' => $user->name,
             'verificationUrl' => $verificationUrl,
         ])->render();
 
         $this->sendMessage(
-            toEmail: $email,
-            toName: $name,
+            toEmail: $user->email,
+            toName: $user->name,
             subject: 'Verify your CivicEase email address',
             htmlContent: $htmlContent,
             tags: ['civicease-email-verification'],
