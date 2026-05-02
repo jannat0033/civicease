@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Services\BrevoTransactionalMailer;
-use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -64,7 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',
-            now()->addMinutes($this->verificationLinkExpiryMinutes()),
+            now()->addMinutes(60),
             [
                 'id' => $this->getKey(),
                 'hash' => sha1($this->getEmailForVerification()),
@@ -91,14 +90,6 @@ class User extends Authenticatable implements MustVerifyEmail
             $resetUrl,
             $this->passwordResetLinkExpiryMinutes(),
         );
-    }
-
-    protected function verificationLinkExpiryMinutes(): int
-    {
-        /** @var CarbonInterface $expiry */
-        $expiry = now()->addMinutes(config('auth.verification.expire', 60));
-
-        return max(1, (int) now()->diffInMinutes($expiry));
     }
 
     protected function passwordResetLinkExpiryMinutes(): int
