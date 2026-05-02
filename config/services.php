@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'brevo' => [
+        'api_key' => env('BREVO_API_KEY'),
+        'base_url' => env('BREVO_API_BASE_URL', 'https://api.brevo.com/v3'),
+    ],
+
 ];
